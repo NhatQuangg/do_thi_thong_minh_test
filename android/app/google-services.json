@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "11806084841",
+    "project_id": "do-thi-thong-minh",
+    "storage_bucket": "do-thi-thong-minh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11806084841:android:4b38aa28f4ea3138ee6a78",
+        "android_client_info": {
+          "package_name": "n.quang.dttm.do_thi_thong_minh"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSnWlx93KOEKhoVW2CjBw38G4KejpV7Pg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
