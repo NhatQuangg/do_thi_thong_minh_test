@@ -56,9 +56,8 @@ class _AllReflectPageState extends State<AllReflectPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              DetailReflectPage(
-                                                reflect: snapshot.data![index],
-                                              )),
+                                              DetailReflectPage(reflect: snapshot.data![index],)
+                                      ),
                                     ).then((value) {
                                       setState(() {});
                                     });

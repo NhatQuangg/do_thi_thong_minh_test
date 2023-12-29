@@ -121,8 +121,8 @@ class _LoginState extends State<LoginScreen> {
                             ),
                             fillColor: Colors.white,
                             focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(color: Colors.blue, width: 2.0))
+                              borderSide: BorderSide(color: Colors.blue, width: 2.0)
+                            )
                         ),
                       ),
                     ),

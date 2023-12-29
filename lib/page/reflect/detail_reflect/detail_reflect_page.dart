@@ -38,20 +38,20 @@ class _DetailReflectPageState extends State<DetailReflectPage> {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
                 UserModel user = snapshot.data as UserModel;
-                final email = TextEditingController(text: user.email);
-                final password = TextEditingController(text: user.password);
-                final fullName = TextEditingController(text: user.fullName);
-                final phoneNo = TextEditingController(text: user.phoneNo);
-                final id = TextEditingController(text: user.id);
-                final level = TextEditingController(text: user.level);
-                String idUser = id.text;
-                String nameUser = fullName.text;
-                String mailUser = email.text;
-                String levelUser = level.text;
+                // final email = TextEditingController(text: user.email);
+                // final password = TextEditingController(text: user.password);
+                // final fullName = TextEditingController(text: user.fullName);
+                // final phoneNo = TextEditingController(text: user.phoneNo);
+                // final id = TextEditingController(text: user.id);
+                // final level = TextEditingController(text: user.level);
+                // String idUser = id.text;
+                // String nameUser = fullName.text;
+                // String mailUser = email.text;
+                // String levelUser = level.text;
                 DateTime date = DateTime.parse(widget.reflect.createdAt!.toDate().toString());
                 String formatedDate = DateFormat('dd/MM/yyyy HH:mm').format(date);
 
-                print("USERPROFILE == $email $idUser $fullName $phoneNo $levelUser");
+                // print("USERPROFILE == $email $idUser $fullName $phoneNo $levelUser");
                 return ListView.builder(
                   itemCount: 1,
                   itemBuilder: (context, index) {
@@ -142,7 +142,7 @@ class _DetailReflectPageState extends State<DetailReflectPage> {
                             ),
                             SizedBox(height: 10,),
                             widget.reflect.media!.length == 0
-                                ? SizedBox()
+                                ? CircularProgressIndicator()
                                 : Image.network(widget.reflect.media!),
                             SizedBox(height: 10,),
                             Container(

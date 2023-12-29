@@ -8,15 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class HomeBottomNavbar extends StatelessWidget {
+class HomeBottomNavbar extends StatefulWidget {
   const HomeBottomNavbar({
     super.key,
   });
-  // final AuthenticationRepository _authRepository = AuthenticationRepository.instance;
-  void logout() {
-    FirebaseAuth.instance.signOut();
-    Get.offAll(() => LoginScreen());
-  }
+
+  @override
+  State<HomeBottomNavbar> createState() => _HomeBottomNavbarState();
+}
+
+class _HomeBottomNavbarState extends State<HomeBottomNavbar> {
+  final auth = AuthenticationRepository.instance;
+
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -52,7 +55,7 @@ class HomeBottomNavbar extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: logout,
+            onTap: () {},
             child: Padding(
               padding: const EdgeInsets.only(right: 30.0, top: 0.0, bottom: 0.0),
               child: Column(
@@ -88,12 +91,13 @@ class HomeBottomNavbar extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
-                  )
-              );
+              auth.logout()
+                  .then((value) => {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen(),)
+                )
+              });
             },
             child: Padding(
               padding: const EdgeInsets.only(right: 10.0),
@@ -101,7 +105,7 @@ class HomeBottomNavbar extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    Icons.settings,
+                    Icons.logout,
                     color: Colors.white,
                     size: 30,
                   ),

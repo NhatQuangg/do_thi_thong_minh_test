@@ -21,6 +21,7 @@ class UserRepository extends GetxController {
   createUser(UserModel user) async {
     // lấy địa chỉ email user hiện tại
     final email = _authRepository.firebaseUser.value?.email;
+    print("Email auth o createUser: ${email}");
     await _db
         .collection("Users")
         .add(user.toJson())

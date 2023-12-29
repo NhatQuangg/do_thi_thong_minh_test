@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:do_thi_thong_minh/constants/constant.dart';
@@ -23,6 +25,17 @@ class _FormReflectPageState extends State<FormReflectPage> {
   final controller = Get.put(ReflectController());
 
   // List<File> listFile = [];
+  List<String> imageUrls = [
+    'https://i.imgur.com/a9G2p0F.png',
+    'https://i.imgur.com/hVwKclJ.png',
+    'https://i.imgur.com/zHimaXz.png'
+  ];
+
+  String getRandomImageUrl(List<String> imageUrls) {
+    Random random = Random();
+    int randomIndex = random.nextInt(imageUrls.length);
+    return imageUrls[randomIndex];
+  }
 
   String? authorName, title, desc;
 
@@ -35,10 +48,10 @@ class _FormReflectPageState extends State<FormReflectPage> {
   // List<String> video_urls = [];
   List<String> listCategory = ['An toàn giao thông', 'Hạ tầng đô thị', 'Giao thông, trật tự đô thị'];
   String? selectNameCategogy;
-  String urls = 'https://th.bing.com/th/id/R.6af6fd9c37f0de4abb34ea0fd20acce3?rik=55mqMmrTutVR0Q&pid=ImgRaw&r=0';
+  // String urls = 'https://th.bing.com/th/id/R.6af6fd9c37f0de4abb34ea0fd20acce3?rik=55mqMmrTutVR0Q&pid=ImgRaw&r=0';
   String? u;
   String slectedFileName = "";
-  String defaultImageUrl = 'https://th.bing.com/th/id/R.ed4c5c82883ef4309eb02f8e2417646c?rik=L7mq4JeVSZO0Gw&riu=http%3a%2f%2fradiusblocks.com%2fwp-content%2fuploads%2f2022%2f09%2fimage-grid_3.jpg&ehk=lsdi%2bBpjRQvuIvmtlegfvmYOtqp0reJX%2baon5vAL4F4%3d&risl=&pid=ImgRaw&r=0';
+  // String defaultImageUrl = 'https://th.bing.com/th/id/R.ed4c5c82883ef4309eb02f8e2417646c?rik=L7mq4JeVSZO0Gw&riu=http%3a%2f%2fradiusblocks.com%2fwp-content%2fuploads%2f2022%2f09%2fimage-grid_3.jpg&ehk=lsdi%2bBpjRQvuIvmtlegfvmYOtqp0reJX%2baon5vAL4F4%3d&risl=&pid=ImgRaw&r=0';
 
 
 
@@ -81,6 +94,7 @@ class _FormReflectPageState extends State<FormReflectPage> {
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
                 onPressed: () async {
+                  String randomImageUrl = getRandomImageUrl(imageUrls);
                   print("TITLE == ${controller.title.text}");
                   if (controller.title.text.trim() == null || controller.title.text.trim() == "") {
                     AnimatedSnackBar.material(
@@ -122,7 +136,7 @@ class _FormReflectPageState extends State<FormReflectPage> {
                                 category: selectNameCategogy,
                                 content: controller.content.text.trim(),
                                 address: controller.address.text.trim(),
-                                media: urls,
+                                media: randomImageUrl,
                                 handle: 1,
                                 createdAt: Timestamp.now()
                             )

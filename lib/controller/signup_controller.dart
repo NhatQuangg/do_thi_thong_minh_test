@@ -20,8 +20,7 @@ class SignUpController extends GetxController {
 
   // đăng ký tài khoản với authentication
   void registerUser(String email, String password) {
-    AuthenticationRepository.instance
-        .createUserWithEmailAndPassword(email, password);
+    AuthenticationRepository.instance.createUserWithEmailAndPassword(email, password);
   }
 
   // tạo tài khoản với Firebase FireStore

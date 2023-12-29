@@ -2,6 +2,8 @@ import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:do_thi_thong_minh/constants/constant.dart';
 import 'package:do_thi_thong_minh/controller/signup_controller.dart';
 import 'package:do_thi_thong_minh/model/user_model.dart';
+import 'package:do_thi_thong_minh/page/login/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +18,7 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignUpController());
-    String levelUser = 'user';
+    String levelUser = '1';
 
     final _formKey = GlobalKey<FormState>();
 
@@ -97,7 +99,7 @@ class _SignupState extends State<Signup> {
                 padding: const EdgeInsets.all(15.0),
                 child: TextFormField(
                   controller: controller.password,
-                  obscureText: false,
+                  obscureText: true,
                   decoration: InputDecoration(
                       labelText: "Mật khẩu",
                       labelStyle: TextStyle(
@@ -107,7 +109,7 @@ class _SignupState extends State<Signup> {
                       ),
                       fillColor: Colors.white,
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue, width: 2.0)
+                        borderSide: BorderSide(color: Colors.blue, width: 2.0)
                       )
                     // controller: ,
                     // validator: ,
@@ -118,7 +120,7 @@ class _SignupState extends State<Signup> {
                 padding: const EdgeInsets.all(15.0),
                 child: TextFormField(
                   controller: controller.repass,
-                  obscureText: false,
+                  obscureText: true,
                   decoration: InputDecoration(
                       labelText: "Nhập lại mật khẩu",
                       labelStyle: TextStyle(
@@ -143,14 +145,20 @@ class _SignupState extends State<Signup> {
                   children: [
                     Text('Bạn đã có tài khoản?'),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()),
+                          );
+                        },
                         style: TextButton.styleFrom(),
                         child: Text(
                           'Đăng nhập',
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
-                            color: Colors.orange,
+                            color: kPrimaryColor,
                             decoration: TextDecoration.underline,
                           ),
                         )),
@@ -185,7 +193,8 @@ class _SignupState extends State<Signup> {
                             type: AnimatedSnackBarType.error,
                             mobileSnackBarPosition: MobileSnackBarPosition.bottom,
                           ).show(context);
-                        } else {
+                        }
+                        else {
                           SignUpController.instance.registerUser(
                               controller.email.text.trim(),
                               controller.password.text.trim()
@@ -197,7 +206,6 @@ class _SignupState extends State<Signup> {
                             password: controller.password.text.trim(),
                             level: levelUser,
                           );
-
                           await SignUpController.instance.createUser(user).then((value) {
                             AnimatedSnackBar.material(
                               'Đăng ký thành công',
@@ -213,7 +221,7 @@ class _SignupState extends State<Signup> {
                         }
                       },
                       style: TextButton.styleFrom(
-                        backgroundColor: Color(0xff152534),
+                        backgroundColor: kPrimaryColor,
                       ),
                       child: Text(
                         'Đăng ký',
