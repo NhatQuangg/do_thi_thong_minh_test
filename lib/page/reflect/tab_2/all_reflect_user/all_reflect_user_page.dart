@@ -1,24 +1,37 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:do_thi_thong_minh/controller/profile_controller.dart';
 import 'package:do_thi_thong_minh/controller/reflect_controller.dart';
 import 'package:do_thi_thong_minh/model/reflect_model.dart';
 import 'package:do_thi_thong_minh/page/reflect/detail_reflect/detail_reflect_page.dart';
+import 'package:do_thi_thong_minh/page/reflect/tab_2/detail_reflect_user/detail_reflect_user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:do_thi_thong_minh/constants/icon_text.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
-class ProcessedReflectPage extends StatefulWidget {
-  const ProcessedReflectPage({super.key});
+class AllReflectUserPage extends StatefulWidget {
+  const AllReflectUserPage({super.key});
 
   @override
-  State<ProcessedReflectPage> createState() => _ProcessedReflectPageState();
+  State<AllReflectUserPage> createState() => _AllReflectUserPageState();
 }
 
-class _ProcessedReflectPageState extends State<ProcessedReflectPage> {
+class _AllReflectUserPageState extends State<AllReflectUserPage> {
   final controller = Get.put(ReflectController());
   final controllerProfile = Get.put(ProfileController());
   List<dynamic> dataList = [];
+
+  void delete(String id) {
+    FirebaseFirestore.instance.collection("Reflects").doc(id).delete();
+    AnimatedSnackBar.material(
+      'Xóa phản ánh thành công!',
+      type: AnimatedSnackBarType.success,
+      mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+    ).show(context);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +45,7 @@ class _ProcessedReflectPageState extends State<ProcessedReflectPage> {
               child: Container(
                 padding: EdgeInsets.all(12),
                 child: FutureBuilder<List<ReflectModel>>(
-                  future: controller.getProcessedReflect(),
+                  future: controller.getAllReflectUser(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData) {
@@ -50,15 +63,30 @@ class _ProcessedReflectPageState extends State<ProcessedReflectPage> {
                             return Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                               child: Slidable(
+                                endActionPane: ActionPane(
+                                  extentRatio: 0.25,
+                                  motion: ScrollMotion(),
+                                  children: [
+                                    SlidableAction(
+                                      onPressed: (context) async {
+                                        delete(snapshot.data![index].id!);
+                                        setState(() {});
+                                      },
+                                      backgroundColor: Colors.red,
+                                      foregroundColor: Colors.white,
+                                      icon: Icons.delete,
+                                      // label: 'DELETE',
+                                    ),
+                                  ],
+                                ),
                                 child: InkWell(
                                   onTap: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              DetailReflectPage(
-                                                reflect: snapshot.data![index],
-                                              )),
+                                              DetailReflectUserPage(reflect: snapshot.data![index],)
+                                      ),
                                     ).then((value) {
                                       setState(() {});
                                     });
@@ -137,16 +165,12 @@ class _ProcessedReflectPageState extends State<ProcessedReflectPage> {
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     iconAndText(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 12
-                                                        ),
+                                                        textStyle: TextStyle(fontSize: 12),
                                                         size: 12,
                                                         title: '${snapshot.data![index].category}',
                                                         icon: Icons.bookmark),
                                                     iconAndText(
-                                                        textStyle: TextStyle(
-                                                            fontSize: 12
-                                                        ),
+                                                        textStyle: TextStyle(fontSize: 12),
                                                         size: 12,
                                                         title: formatedDate,
                                                         icon: Icons.calendar_month
@@ -172,7 +196,7 @@ class _ProcessedReflectPageState extends State<ProcessedReflectPage> {
                                                             color: Colors.red
                                                         ),
                                                       )
-                                                    else
+                                                    else if (handle == 0)
                                                       Text(
                                                         'Đã xử lý',
                                                         style: TextStyle(
@@ -212,7 +236,6 @@ class _ProcessedReflectPageState extends State<ProcessedReflectPage> {
                 ),
               ),
             ),
-
           ],
         ),
       ),

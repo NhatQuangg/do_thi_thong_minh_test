@@ -12,9 +12,9 @@ class ReflectRepository extends GetxController {
         .collection("Reflects")
         .add(reflect.toJson())
         .whenComplete(() => Get.snackbar("Success", "Reflect has been created",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green.withOpacity(0.1),
-        colorText: Colors.green))
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green.withOpacity(0.1),
+            colorText: Colors.green))
         .catchError((error, StackTrace) {
       Get.snackbar("Error", "Something went wrong. Try again",
           snackPosition: SnackPosition.BOTTOM,
@@ -24,14 +24,10 @@ class ReflectRepository extends GetxController {
     });
   }
 
-  createLikes(String email) async {
-    await _db.collection("likes").doc(email);
-  }
-
   Future<List<ReflectModel>> allReflect() async {
     final snapshot = await _db.collection("Reflects").get();
     final reflectData =
-    snapshot.docs.map((e) => ReflectModel.fromSnapshot(e)).toList();
+        snapshot.docs.map((e) => ReflectModel.fromSnapshot(e)).toList();
     return reflectData;
   }
 
@@ -41,28 +37,26 @@ class ReflectRepository extends GetxController {
         .where("Handle", isEqualTo: handle)
         .get();
     final reflectData =
-    snapshot.docs.map((e) => ReflectModel.fromSnapshot(e)).toList();
+        snapshot.docs.map((e) => ReflectModel.fromSnapshot(e)).toList();
     return reflectData;
   }
 
-  Future<List<ReflectModel>> allReflectAdmin(int handle) async {
-    final snapshot = await _db
-        .collection("Reflects")
-        .where("Handle", isEqualTo: handle)
-        .get();
+  Future<List<ReflectModel>> allReflectUser(String email) async {
+    final snapshot =
+        await _db.collection("Reflects").where("Email", isEqualTo: email).get();
     final reflectData =
-    snapshot.docs.map((e) => ReflectModel.fromSnapshot(e)).toList();
+        snapshot.docs.map((e) => ReflectModel.fromSnapshot(e)).toList();
     return reflectData;
   }
 
-  Future<List<ReflectModel>> allReflectUser(String email, int handle) async {
+  Future<List<ReflectModel>> getReflectUser(String email, int handle) async {
     final snapshot = await _db
         .collection("Reflects")
         .where("Email", isEqualTo: email)
         .where("Handle", isEqualTo: handle)
         .get();
     final reflectData =
-    snapshot.docs.map((e) => ReflectModel.fromSnapshot(e)).toList();
+        snapshot.docs.map((e) => ReflectModel.fromSnapshot(e)).toList();
     return reflectData;
   }
 
@@ -72,7 +66,7 @@ class ReflectRepository extends GetxController {
         .where("Handle", isEqualTo: handle)
         .get();
     final reflectData =
-    snapshot.docs.map((e) => ReflectModel.fromSnapshot(e)).toList();
+        snapshot.docs.map((e) => ReflectModel.fromSnapshot(e)).toList();
     return reflectData;
   }
 }

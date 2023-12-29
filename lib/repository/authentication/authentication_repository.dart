@@ -56,5 +56,5 @@ class AuthenticationRepository extends GetxController {
     } catch (_) {}
   }
 
-  // Future<void> logout() async => await _auth.ig
+  Future<void> logout() async => await _auth.signOut();
 }

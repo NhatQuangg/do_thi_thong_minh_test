@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Phản ánh đô thị 3',
+      title: 'Phản ánh đô thị',
       theme: ThemeData(
         scaffoldBackgroundColor: kBackgroundColor,
         // brightness: Brightness.light,
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         // useMaterial3: true,
       ),
-      home: const ReflectScreen(),
+      home: const LoginScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,6 +1,7 @@
 import 'package:do_thi_thong_minh/controller/profile_controller.dart';
 import 'package:do_thi_thong_minh/controller/reflect_controller.dart';
 import 'package:do_thi_thong_minh/model/reflect_model.dart';
+import 'package:do_thi_thong_minh/page/reflect/detail_reflect/detail_reflect_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:do_thi_thong_minh/constants/icon_text.dart';
@@ -50,7 +51,18 @@ class _AllReflectPageState extends State<AllReflectPage> {
                               padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                               child: Slidable(
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DetailReflectPage(
+                                                reflect: snapshot.data![index],
+                                              )),
+                                    ).then((value) {
+                                      setState(() {});
+                                    });
+                                  },
                                   child: Container(
                                     height: 125,
                                     decoration: BoxDecoration(

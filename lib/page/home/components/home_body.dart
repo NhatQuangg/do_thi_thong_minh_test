@@ -123,81 +123,81 @@ class HomeBody extends StatelessWidget {
                     ),
                   ],
                 ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
-                        onPrimary: Colors.black87,
-                        padding: EdgeInsets.all(25.0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)
-                        )
-                    ),
-                    child: Icon(Icons.add_a_photo),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Phản ánh hiện trường',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
-                        onPrimary: Colors.black87,
-                        padding: EdgeInsets.all(25.0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)
-                        )
-                    ),
-                    child: Icon(Icons.add_a_photo),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Phản ánh hiện trường',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
-                        onPrimary: Colors.black87,
-                        padding: EdgeInsets.all(25.0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)
-                        )
-                    ),
-                    child: Icon(Icons.add_a_photo),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Phản ánh hiện trường',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     ElevatedButton(
+              //       onPressed: () {},
+              //       style: ElevatedButton.styleFrom(
+              //           primary: Colors.white,
+              //           onPrimary: Colors.black87,
+              //           padding: EdgeInsets.all(25.0),
+              //           shape: RoundedRectangleBorder(
+              //               borderRadius: BorderRadius.circular(20)
+              //           )
+              //       ),
+              //       child: Icon(Icons.add_a_photo),
+              //     ),
+              //     SizedBox(height: 8.0),
+              //     Text(
+              //       'Phản ánh hiện trường',
+              //       style: TextStyle(
+              //         color: Colors.black,
+              //       ),
+              //       textAlign: TextAlign.center,
+              //     ),
+              //   ],
+              // ),
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     ElevatedButton(
+              //       onPressed: () {},
+              //       style: ElevatedButton.styleFrom(
+              //           primary: Colors.white,
+              //           onPrimary: Colors.black87,
+              //           padding: EdgeInsets.all(25.0),
+              //           shape: RoundedRectangleBorder(
+              //               borderRadius: BorderRadius.circular(20)
+              //           )
+              //       ),
+              //       child: Icon(Icons.add_a_photo),
+              //     ),
+              //     SizedBox(height: 8.0),
+              //     Text(
+              //       'Phản ánh hiện trường',
+              //       style: TextStyle(
+              //         color: Colors.black,
+              //       ),
+              //       textAlign: TextAlign.center,
+              //     ),
+              //   ],
+              // ),
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     ElevatedButton(
+              //       onPressed: () {},
+              //       style: ElevatedButton.styleFrom(
+              //           primary: Colors.white,
+              //           onPrimary: Colors.black87,
+              //           padding: EdgeInsets.all(25.0),
+              //           shape: RoundedRectangleBorder(
+              //               borderRadius: BorderRadius.circular(20)
+              //           )
+              //       ),
+              //       child: Icon(Icons.add_a_photo),
+              //     ),
+              //     SizedBox(height: 8.0),
+              //     Text(
+              //       'Phản ánh hiện trường',
+              //       style: TextStyle(
+              //         color: Colors.black,
+              //       ),
+              //       textAlign: TextAlign.center,
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         )

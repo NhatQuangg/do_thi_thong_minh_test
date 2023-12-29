@@ -1,3 +1,5 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:do_thi_thong_minh/controller/profile_controller.dart';
 import 'package:do_thi_thong_minh/controller/reflect_controller.dart';
 import 'package:do_thi_thong_minh/model/reflect_model.dart';
@@ -8,17 +10,26 @@ import 'package:do_thi_thong_minh/constants/icon_text.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
-class ProcessedReflectPage extends StatefulWidget {
-  const ProcessedReflectPage({super.key});
+class ProcessingReflectUserPage extends StatefulWidget {
+  const ProcessingReflectUserPage({super.key});
 
   @override
-  State<ProcessedReflectPage> createState() => _ProcessedReflectPageState();
+  State<ProcessingReflectUserPage> createState() => _ProcessingReflectUserPageState();
 }
 
-class _ProcessedReflectPageState extends State<ProcessedReflectPage> {
+class _ProcessingReflectUserPageState extends State<ProcessingReflectUserPage> {
   final controller = Get.put(ReflectController());
   final controllerProfile = Get.put(ProfileController());
   List<dynamic> dataList = [];
+
+  void delete(String id) {
+    FirebaseFirestore.instance.collection("Reflects").doc(id).delete();
+    AnimatedSnackBar.material(
+      'Xóa phản ánh thành công!',
+      type: AnimatedSnackBarType.success,
+      mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+    ).show(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +43,7 @@ class _ProcessedReflectPageState extends State<ProcessedReflectPage> {
               child: Container(
                 padding: EdgeInsets.all(12),
                 child: FutureBuilder<List<ReflectModel>>(
-                  future: controller.getProcessedReflect(),
+                  future: controller.getProcessingReflectUser(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData) {
@@ -50,6 +61,22 @@ class _ProcessedReflectPageState extends State<ProcessedReflectPage> {
                             return Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                               child: Slidable(
+                                endActionPane: ActionPane(
+                                  extentRatio: 0.25,
+                                  motion: ScrollMotion(),
+                                  children: [
+                                    SlidableAction(
+                                      onPressed: (context) async {
+                                        delete(snapshot.data![index].id!);
+                                        setState(() {});
+                                      },
+                                      backgroundColor: Colors.red,
+                                      foregroundColor: Colors.white,
+                                      icon: Icons.delete,
+                                      // label: 'DELETE',
+                                    ),
+                                  ],
+                                ),
                                 child: InkWell(
                                   onTap: () {
                                     Navigator.push(

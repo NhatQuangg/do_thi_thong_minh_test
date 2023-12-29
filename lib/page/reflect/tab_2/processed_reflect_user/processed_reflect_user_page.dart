@@ -1,232 +1,49 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:do_thi_thong_minh/constants/constant.dart';
-import 'package:do_thi_thong_minh/constants/global.dart';
-import 'package:do_thi_thong_minh/constants/icon_text.dart';
+import 'package:flutter/material.dart';
 import 'package:do_thi_thong_minh/controller/profile_controller.dart';
 import 'package:do_thi_thong_minh/controller/reflect_controller.dart';
 import 'package:do_thi_thong_minh/model/reflect_model.dart';
-import 'package:do_thi_thong_minh/page/home/home_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:do_thi_thong_minh/page/reflect/detail_reflect/detail_reflect_page.dart';
 import 'package:get/get.dart';
+import 'package:do_thi_thong_minh/constants/icon_text.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
-class GeneralScreen extends StatefulWidget {
-  const GeneralScreen({super.key});
+class ProcessedReflectUserPage extends StatefulWidget {
+  const ProcessedReflectUserPage({super.key});
 
   @override
-  State<GeneralScreen> createState() => _GeneralScreenState();
+  State<ProcessedReflectUserPage> createState() => _ProcessedReflectUserPageState();
 }
 
-class _GeneralScreenState extends State<GeneralScreen> {
+class _ProcessedReflectUserPageState extends State<ProcessedReflectUserPage> {
   final controller = Get.put(ReflectController());
   final controllerProfile = Get.put(ProfileController());
   List<dynamic> dataList = [];
 
+  void delete(String id) {
+    FirebaseFirestore.instance.collection("Reflects").doc(id).delete();
+    AnimatedSnackBar.material(
+      'Xóa phản ánh thành công!',
+      type: AnimatedSnackBarType.success,
+      mobileSnackBarPosition: MobileSnackBarPosition.bottom,
+    ).show(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Phản ánh hiện trường",
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 19),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomePage(),
-                ));
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-            size: 30,
-          ),
-        ),
-        backgroundColor: kPrimaryColor,
-      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 0, top: 15.0, right: 5.0, bottom: 5.0),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      fixedSize: Size(170, 35),
-                      backgroundColor: kButtonColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      side: BorderSide(
-                        color: kPrimaryColor,
-                        width: 0.5,
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.search,
-                          color: Colors.black87,
-                        ),
-                        SizedBox(width: 8.0),
-                        Text(
-                          'Tìm kiếm',
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                      left: 5.0, top: 15.0, right: 0.0, bottom: 5.0),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      fixedSize: Size(170, 35),
-                      backgroundColor: kButtonColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      side: BorderSide(
-                        color: kPrimaryColor,
-                        width: 0.5,
-                      ),
-                      // shadowColor: Colors.grey,
-                      // elevation: 2
-                    ),
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.menu_outlined,
-                          color: Colors.black87,
-                        ),
-                        SizedBox(width: 8.0),
-                        Text(
-                          'Danh mục',
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(
-                      left: 0.0, top: 10.0, right: 5.0, bottom: 0.0),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      fixedSize: Size(110, 35),
-                      // backgroundColor: kButtonColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      side: BorderSide(
-                        color: kPrimaryColor,
-                        width: 0.5,
-                      ),
-                      // shadowColor: Colors.grey,
-                      // elevation: 2
-                    ),
-                    onPressed: () {},
-                    child: Text(
-                      'Toàn bộ',
-                      style: TextStyle(
-                          color: kPrimaryColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                      left: 5.0, top: 10.0, right: 5.0, bottom: 0.0),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      fixedSize: Size(110, 35),
-                      // backgroundColor: kButtonColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      side: BorderSide(
-                        color: kPrimaryColor,
-                        width: 0.5,
-                      ),
-                      // shadowColor: Colors.grey,
-                      // elevation: 2
-                    ),
-                    onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => IndividualScreen(),
-                      //     )
-                      // );
-                    },
-                    child: Text(
-                      'Đã xử lý',
-                      style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                      left: 5.0, top: 10.0, right: 0.0, bottom: 0.0),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      fixedSize: Size(115, 35),
-                      // backgroundColor: kButtonColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      side: BorderSide(
-                        color: kPrimaryColor,
-                        width: 0.5,
-                      ),
-                      // shadowColor: Colors.grey,
-                      // elevation: 2
-                    ),
-                    onPressed: () {},
-                    child: Text(
-                      'Đang xử lý',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black87,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
             SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Container(
                 padding: EdgeInsets.all(12),
                 child: FutureBuilder<List<ReflectModel>>(
-                  future: controller.getAllReflect(),
+                  future: controller.getProcessedReflectUser(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData) {
@@ -244,8 +61,34 @@ class _GeneralScreenState extends State<GeneralScreen> {
                             return Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                               child: Slidable(
+                                endActionPane: ActionPane(
+                                  extentRatio: 0.25,
+                                  motion: ScrollMotion(),
+                                  children: [
+                                    SlidableAction(
+                                      onPressed: (context) async {
+                                        delete(snapshot.data![index].id!);
+                                        setState(() {});
+                                      },
+                                      backgroundColor: Colors.red,
+                                      foregroundColor: Colors.white,
+                                      icon: Icons.delete,
+                                      // label: 'DELETE',
+                                    ),
+                                  ],
+                                ),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DetailReflectPage(reflect: snapshot.data![index],)
+                                      ),
+                                    ).then((value) {
+                                      setState(() {});
+                                    });
+                                  },
                                   child: Container(
                                     height: 125,
                                     decoration: BoxDecoration(
@@ -271,7 +114,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
                                             image: DecorationImage(
                                               fit: BoxFit.cover,
                                               image: Image.network(
-                                                '${snapshot.data![index].media}'
+                                                  '${snapshot.data![index].media}'
                                               ).image,
                                             ),
                                             borderRadius: BorderRadius.circular(8),
@@ -351,8 +194,8 @@ class _GeneralScreenState extends State<GeneralScreen> {
                                                       Text(
                                                         'Đang xử lý',
                                                         style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors.red
+                                                            fontSize: 12,
+                                                            color: Colors.red
                                                         ),
                                                       )
                                                     else

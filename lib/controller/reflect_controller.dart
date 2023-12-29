@@ -26,7 +26,6 @@ class ReflectController extends GetxController {
   final createdAt = TextEditingController();
 
   final RefreshController refreshController = RefreshController();
-  // final _userRepo = Get.put(UserRepository());
   final _authRepo = Get.put(AuthenticationRepository());
   final _userRepo = Get.put(UserRepository());
 
@@ -80,41 +79,26 @@ class ReflectController extends GetxController {
     return await _reflectRepo.getReflect(1);
   }
 
-  Future<List<ReflectModel>> getAllReflectNonAdmin() async {
-    return await _reflectRepo.allReflectAdmin(1);
-  }
-
-  Future<List<ReflectModel>> getAllReflectAcceptAdmin() async {
-    return await _reflectRepo.allReflectAdmin(2);
-  }
-
-  Future<List<ReflectModel>> getAllReflectNotAcceptAdmin() async {
-    return await _reflectRepo.allReflectAdmin(3);
-  }
-
-  Future<List<ReflectModel>> getAllReflectReload(bool reload) async {
-    return await _reflectRepo.allReflect();
-  }
 
   Future<List<ReflectModel>> getAllReflectUser() async {
     final email = _authRepo.firebaseUser.value?.email;
     print("EMAIL == $email");
 
-    return await _reflectRepo.allReflectUser(email!, 1);
+    return await _reflectRepo.allReflectUser(email!);
   }
 
-  Future<List<ReflectModel>> getAllReflectUserSucc() async {
+  Future<List<ReflectModel>> getProcessedReflectUser() async {
     final email = _authRepo.firebaseUser.value?.email;
     print("EMAIL == $email");
 
-    return await _reflectRepo.allReflectUser(email!, 2);
+    return await _reflectRepo.getReflectUser(email!, 0);
   }
 
-  Future<List<ReflectModel>> getAllReflectUserNotAccept() async {
+  Future<List<ReflectModel>> getProcessingReflectUser() async {
     final email = _authRepo.firebaseUser.value?.email;
     print("EMAIL == $email");
 
-    return await _reflectRepo.allReflectUser(email!, 3);
+    return await _reflectRepo.getReflectUser(email!, 1);
   }
 
   Future<List<ReflectModel>> getAllReflecHandle2() async {
@@ -122,7 +106,7 @@ class ReflectController extends GetxController {
   }
 
   static Future updateRef(ReflectModel reflect) async {
-    final reflectCollection = FirebaseFirestore.instance.collection("Reflect");
+    final reflectCollection = FirebaseFirestore.instance.collection("Reflects");
 
     final docRef = reflectCollection.doc(reflect.id);
 
@@ -143,100 +127,5 @@ class ReflectController extends GetxController {
       print("some error $e");
     }
   }
-
-  // static Future updateLikesRef(ReflectModel reflect) async {
-  //   final reflectCollection = FirebaseFirestore.instance.collection("Reflect");
-  //
-  //   final docRef = reflectCollection.doc(reflect.id);
-  //
-  //   final newReflect = ReflectModel(
-  //       email: reflect.email,
-  //       title: reflect.title,
-  //       category: reflect.category,
-  //       content: reflect.content,
-  //       address: reflect.address,
-  //       media: reflect.media,
-  //       handle: reflect.handle,
-  //       createdAt: reflect.createdAt,
-  //   ).toJson();
-  //
-  //   try {
-  //     await docRef.update(newReflect);
-  //   } catch (e) {
-  //     print("some error $e");
-  //   }
-  // }
-  //
-  // static Future likesPost(String id) async {
-  //   final idemail = getEmail();
-  //   print("IDEMAILLL == $idemail");
-  //
-  //   final reflectCollection = FirebaseFirestore.instance.collection("Reflect");
-  //
-  //   final docRef = reflectCollection.doc(id);
-  //
-  //   try {
-  //     await docRef.update({
-  //       'Likes': FieldValue.arrayUnion([idemail])
-  //     });
-  //   } catch (e) {
-  //     print("some error $e");
-  //   }
-  // }
-  //
-  // static Future disLikesPost(String id) async {
-  //   final idemail = getEmail();
-  //   print("IDEMAILLL == $idemail");
-  //
-  //   final reflectCollection = FirebaseFirestore.instance.collection("Reflect");
-  //
-  //   final docRef = reflectCollection.doc(id);
-  //
-  //   try {
-  //     await docRef.update({
-  //       'Likes': FieldValue.arrayRemove([idemail])
-  //     });
-  //   } catch (e) {
-  //     print("some error $e");
-  //   }
-  // }
-
-  // static Future likeReflectUser(ReflectModel reflect, UserModel user) async {
-  //   List<dynamic> likes = reflect.likes!;
-  //
-  //   if (reflect.likes!.contains(user.email)) {
-  //     likes.remove(user.email);
-  //   } else {
-  //     likes.add(user.email);
-  //   }
-  //
-  //   final res = await likeReflect(reflect);
-  // }
-
-  // static Future likeReflect(ReflectModel reflect) async {
-  //   final reflectCollection = FirebaseFirestore.instance.collection("Reflect");
-  //
-  //   final docRef = reflectCollection.doc(reflect.id);
-  //
-  //   final newReflect = ReflectModel(
-  //       email: reflect.email,
-  //       title: reflect.title,
-  //       category: reflect.category,
-  //       content: reflect.content,
-  //       address: reflect.address,
-  //       media: reflect.media,
-  //       accept: reflect.accept,
-  //       handle: reflect.handle,
-  //       createdAt: reflect.createdAt,
-  //       likes: reflect.likes,
-  //       content_feed_back: reflect.content_feed_back)
-  //       .toJson();
-  //
-  //   try {
-  //     await docRef.update(newReflect);
-  //   } catch (e) {
-  //     print("some error $e");
-  //   }
-  // }
 
 }

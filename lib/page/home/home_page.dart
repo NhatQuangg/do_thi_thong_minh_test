@@ -30,11 +30,16 @@ class _HomePageState extends State<HomePage> {
               context,
               MaterialPageRoute(
                 builder: (context) => QRCodeScanner(),
-              ));
+              )
+          );
         },
-        child: Icon(Icons.qr_code_2),
+        child: Icon(
+          Icons.qr_code_2,
+          color: Colors.white,
+        ),
         backgroundColor: kPrimaryColor,
-        elevation: 0,
+        // elevation: 0,
+        shape: CircleBorder(),
       ),
       bottomNavigationBar: HomeBottomNavbar(),
     );

@@ -14,7 +14,7 @@ class UserModel {
     required this.email,
     required this.phoneNo,
     required this.password,
-    this.level,
+    required this.level,
   });
 
   // chuyển đối tượng UserModel -> Json.

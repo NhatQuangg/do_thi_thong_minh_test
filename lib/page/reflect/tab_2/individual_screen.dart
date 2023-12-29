@@ -1,21 +1,24 @@
 import 'package:do_thi_thong_minh/constants/constant.dart';
 import 'package:do_thi_thong_minh/page/home/home_page.dart';
+import 'package:do_thi_thong_minh/page/reflect/tab_2/all_reflect_user/all_reflect_user_page.dart';
 import 'package:do_thi_thong_minh/page/reflect/tab_2/individual_screen.dart';
 import 'package:do_thi_thong_minh/page/reflect/tab_1/all_reflect/all_reflect_page.dart';
 import 'package:do_thi_thong_minh/page/reflect/tab_1/processed_reflect/processed_reflect_page.dart';
 import 'package:do_thi_thong_minh/page/reflect/tab_1/processing_reflect/processing_reflect_page.dart';
+import 'package:do_thi_thong_minh/page/reflect/tab_2/processed_reflect_user/processed_reflect_user_page.dart';
+import 'package:do_thi_thong_minh/page/reflect/tab_2/processing_reflect_user/processing_reflect_user_page.dart';
 import 'package:extended_tabs/extended_tabs.dart';
 import 'package:flutter/material.dart';
 
-class GeneralPage extends StatefulWidget {
-  const GeneralPage({super.key});
+class IndividualScreen extends StatefulWidget {
+  const IndividualScreen({super.key});
 
   @override
-  State<GeneralPage> createState() => _GeneralPageState();
+  State<IndividualScreen> createState() => _IndividualScreenState();
 }
 
-class _GeneralPageState extends State<GeneralPage> {
-  int _currentIndex = 0;
+class _IndividualScreenState extends State<IndividualScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,8 +67,8 @@ class _GeneralPageState extends State<GeneralPage> {
                       child: Container(
                         height: 50,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: kPrimaryColor, width: 1)
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(color: kPrimaryColor, width: 1)
                         ),
                         child: Align(
                           alignment: Alignment.center,
@@ -106,9 +109,9 @@ class _GeneralPageState extends State<GeneralPage> {
             Expanded(
               child: TabBarView(
                 children: [
-                  AllReflectPage(),
-                  ProcessedReflectPage(),
-                  ProcessingReflectPage()
+                  AllReflectUserPage(),
+                  ProcessedReflectUserPage(),
+                  ProcessingReflectUserPage()
                 ],
               ),
             )
@@ -118,6 +121,3 @@ class _GeneralPageState extends State<GeneralPage> {
     );
   }
 }
-
-
-
