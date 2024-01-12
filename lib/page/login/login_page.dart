@@ -104,7 +104,7 @@ class _LoginState extends State<LoginScreen> {
                             suffixIcon: IconButton(
                               icon: Icon(
                                 _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                                color: Colors.white,
+                                color: Colors.grey,
                               ),
                               onPressed: () async {
                                 // Update the state i.e. toogle the state of passwordVisible variable
